@@ -24,7 +24,7 @@ Remember to clone the project utilizing Go, if you want it to be at your GOPATH 
 ```
 go build
 
-.\main.exe
+.\gg-scraping-go.exe
 ```
 or
 ```
