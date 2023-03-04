@@ -14,7 +14,7 @@ type Stats struct {
 	Players string
 }
 
-func CreateLog(players string) {
+func createLog(players string) {
 	file, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
 	if err != nil {
@@ -26,7 +26,7 @@ func CreateLog(players string) {
 	file.Close()
 }
 
-func GuiltyGearScraper() {
+func guiltyGearScraper() {
 	fmt.Println("Start scraping")
 
 	c := colly.NewCollector(
@@ -37,7 +37,7 @@ func GuiltyGearScraper() {
 		stats := Stats{}
 		stats.Players = e.ChildText(".num")
 		println(time.Now().Format("02/01/2006 15:04:05") + " - " + stats.Players + " playing\n")
-		CreateLog(stats.Players)
+		createLog(stats.Players)
 	})
 
 	c.OnResponse(func(r *colly.Response) {
@@ -53,6 +53,6 @@ func GuiltyGearScraper() {
 
 func main() {
 	my_scheduler := gocron.NewScheduler(time.UTC)
-	my_scheduler.Every(2).Minute().Do(GuiltyGearScraper)
+	my_scheduler.Every(2).Minute().Do(guiltyGearScraper)
 	my_scheduler.StartBlocking()
 }
